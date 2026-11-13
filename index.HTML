@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>5LVL WIN CONFIRM - Super Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --spider-red:#ff2d55;
+  --spider-blue:#0066ff;
+  --spider-cyan:#00e5ff;
+  --gold:#fbbf24;
+  --win:#22c55e;
+  --dark:#08060e;
+  --surface:rgba(255,255,255,.045);
+  --stroke:rgba(255,255,255,.10);
+  --txt:#f8f7ff;
+  --muted:#8b8da8;
+  --font-main:'Poppins',sans-serif;
+  --font-tech:'Orbitron',sans-serif;
+  --font-display:'Space Grotesk',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+
+body{
+  font-family:var(--font-main);color:var(--txt);min-height:100vh;
+  display:flex;justify-content:center;padding:20px 12px 40px;overflow-x:hidden;
+  background:var(--dark);
+  background-image:
+    radial-gradient(circle at 10% 12%, rgba(255,45,85,.24), transparent 42%),
+    radial-gradient(circle at 90% 20%, rgba(0,102,255,.28), transparent 45%),
+    radial-gradient(circle at 50% 100%, rgba(0,229,255,.14), transparent 50%);
+  position:relative;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:-1;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'><g stroke='%23ffffff' stroke-opacity='0.035' stroke-width='0.5' fill='none'><line x1='120' y1='0' x2='120' y2='240'/><line x1='0' y1='120' x2='240' y2='120'/><line x1='40' y1='40' x2='200' y2='200'/><line x1='200' y1='40' x2='40' y2='200'/><circle cx='120' cy='120' r='35'/><circle cx='120' cy='120' r='70'/><circle cx='120' cy='120' r='105'/></g></svg>");
+  background-repeat:repeat;pointer-events:none;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.7),rgba(0,0,0,.1));
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.7),rgba(0,0,0,.1));
+}
+
+#mainApp{width:100%;max-width:480px;display:flex;flex-direction:column;gap:14px;animation:fadeIn .55s ease-out}
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== HEADER ===== */
+.top-header{
+  background:linear-gradient(135deg,rgba(255,45,85,.12),rgba(0,102,255,.12));
+  border:1px solid rgba(255,45,85,.28);
+  border-radius:18px;padding:12px 16px;
+  display:flex;justify-content:space-between;align-items:center;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  box-shadow:0 10px 36px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.09),0 0 28px rgba(255,45,85,.15);
+  position:relative;overflow:hidden;
+}
+.top-header::before{
+  content:'';position:absolute;top:0;left:-50%;width:50%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);
+  animation:headerShine 6s ease-in-out infinite;
+}
+@keyframes headerShine{0%,70%{left:-50%}100%{left:150%}}
+.top-header::after{
+  content:'';position:absolute;bottom:0;left:15%;right:15%;height:1.5px;
+  background:linear-gradient(90deg,transparent,#ff2d55,#0066ff,transparent);
+  filter:blur(.5px);
+}
+.brand-name{
+  font-family:var(--font-display);font-size:17px;font-weight:700;letter-spacing:1px;
+  background:linear-gradient(135deg,#ff2d55 0%,#ffffff 50%,#0066ff 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 12px rgba(255,45,85,.4));
+  position:relative;z-index:1;
+}
+.mode-toggle{display:flex;gap:3px;background:rgba(0,0,0,.45);padding:3px;border-radius:12px;border:1px solid rgba(255,45,85,.22);position:relative;z-index:1}
+.mode-btn{
+  padding:6px 12px;border-radius:9px;font-family:var(--font-tech);
+  font-size:10px;font-weight:900;letter-spacing:.5px;
+  background:transparent;color:var(--muted);border:none;cursor:pointer;
+  transition:transform .18s,color .18s,background .25s,box-shadow .25s;
+}
+.mode-btn.active{
+  color:#fff;background:linear-gradient(135deg,#ff2d55,#0066ff);
+  box-shadow:0 0 16px rgba(255,45,85,.55),0 0 28px rgba(0,102,255,.35);
+}
+
+/* ===== PREDICTION PANEL ===== */
+.prediction-panel{
+  position:relative;
+  background:linear-gradient(145deg,rgba(24,18,36,.88),rgba(8,6,14,.92));
+  border:1px solid rgba(255,45,85,.25);border-radius:22px;padding:18px;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  box-shadow:0 22px 56px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.07),0 0 44px rgba(255,45,85,.10);
+  overflow:hidden;
+}
+.prediction-panel::before{
+  content:'';position:absolute;inset:0;border-radius:22px;padding:1.2px;
+  background:linear-gradient(135deg,rgba(255,45,85,.7),rgba(0,102,255,.5),rgba(0,229,255,.5));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+}
+.prediction-panel::after{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.05),transparent);
+  animation:panelShine 5s ease-in-out infinite;pointer-events:none;border-radius:22px;
+}
+@keyframes panelShine{0%,65%{left:-100%}100%{left:100%}}
+
+.top-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;position:relative;z-index:1}
+#periodId{
+  font-size:10px;color:var(--muted);font-family:var(--font-tech);font-weight:700;
+  letter-spacing:.5px;opacity:.9;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0;
+}
+
+/* ===== TIMER RING (GLOWING CIRCULAR WITH SMALL DOT) ===== */
+.timer-ring{
+  --progress:0deg;
+  position:relative;width:66px;height:66px;border-radius:50%;
+  display:grid;place-items:center;flex-shrink:0;
+  background:conic-gradient(from -90deg,
+    #ff2d55 0deg,
+    #ff2d55 calc(var(--progress) * .5),
+    #a855f7 calc(var(--progress) * .75),
+    #0066ff var(--progress),
+    rgba(255,255,255,.06) var(--progress));
+  box-shadow:0 0 20px rgba(255,45,85,.4),0 0 40px rgba(0,102,255,.22),inset 0 0 22px rgba(0,0,0,.35);
+  transition:box-shadow .3s;
+  animation:timerBreath 3s ease-in-out infinite;
+}
+@keyframes timerBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+.timer-ring::before{
+  content:'';position:absolute;inset:5px;border-radius:50%;
+  background:radial-gradient(circle at 30% 25%,#1a0a20,#08060e 70%);
+  box-shadow:inset 0 2px 8px rgba(0,0,0,.85),inset 0 -1px 0 rgba(255,255,255,.05);
+}
+.timer-ring span{
+  position:relative;z-index:3;font-family:var(--font-tech);font-size:17px;font-weight:900;
+  color:#fff;text-shadow:0 0 10px rgba(0,229,255,.9),0 0 20px rgba(0,102,255,.6);
+  letter-spacing:.5px;
+}
+.timer-dot{
+  position:absolute;width:5px;height:5px;border-radius:50%;
+  background:#fff;margin:-2.5px 0 0 -2.5px;
+  box-shadow:0 0 6px #fff,0 0 12px #ff2d55,0 0 18px rgba(255,45,85,.6);
+  z-index:2;pointer-events:none;transition:box-shadow .3s;
+}
+.timer-ring.urgent{animation:timerUrgent .85s ease-in-out infinite}
+.timer-ring.urgent span{color:#ff2d55;text-shadow:0 0 12px #ff2d55,0 0 24px #ff2d55,0 0 36px rgba(255,45,85,.5)}
+.timer-ring.urgent .timer-dot{background:#ff2d55;box-shadow:0 0 8px #ff2d55,0 0 16px #ff2d55,0 0 24px #ff2d55}
+@keyframes timerUrgent{
+  0%,100%{box-shadow:0 0 22px rgba(255,45,85,.6),0 0 44px rgba(255,45,85,.28),inset 0 0 22px rgba(0,0,0,.35);transform:scale(1)}
+  50%{box-shadow:0 0 34px rgba(255,45,85,1),0 0 68px rgba(255,45,85,.55),inset 0 0 22px rgba(0,0,0,.35);transform:scale(1.07)}
+}
+
+/* ===== OVERRIDE BADGE (SKIP ONLY) ===== */
+.override-badge{
+  display:none;text-align:center;font-size:10px;font-weight:800;color:#fff;
+  padding:7px 10px;border-radius:10px;margin-bottom:10px;letter-spacing:1.5px;
+  font-family:var(--font-display);animation:pulse .9s infinite alternate;
+  position:relative;z-index:1;
+}
+.override-badge.show{display:block}
+.override-badge.skip-mode{background:linear-gradient(90deg,#fbbf24,#fb923c);color:#1a0a20;box-shadow:0 0 20px rgba(251,191,36,.5)}
+@keyframes pulse{from{opacity:.7}to{opacity:1}}
+
+/* ===== PREDICTION VALUE ===== */
+.pred-label{
+  font-size:11px;letter-spacing:4px;font-weight:800;text-align:center;margin-bottom:8px;
+  font-family:var(--font-display);text-transform:uppercase;
+  background:linear-gradient(135deg,#ff2d55,#ffffff,#0066ff);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 8px rgba(255,45,85,.3));
+  position:relative;z-index:1;
+}
+.pred-value{
+  font-family:var(--font-display);font-size:56px;font-weight:700;text-align:center;
+  margin:0 0 6px;line-height:1.05;transition:all .3s;letter-spacing:2px;
+  position:relative;z-index:1;
+}
+.pred-value.B{
+  background:linear-gradient(135deg,#00e5ff 0%,#0066ff 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 24px rgba(0,102,255,.7));
+  animation:neonFloat 3s ease-in-out infinite;
+}
+.pred-value.S{
+  background:linear-gradient(135deg,#ff6b8a 0%,#ff2d55 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 24px rgba(255,45,85,.7));
+  animation:neonFloat 3s ease-in-out infinite;
+}
+.pred-value.WAIT{color:#4b4b63;font-size:32px}
+.pred-value.SKIP{
+  background:linear-gradient(135deg,#fbbf24,#fb923c);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  font-size:32px;filter:drop-shadow(0 0 20px rgba(251,191,36,.6));
+  animation:skipPulse 1.2s ease-in-out infinite;
+}
+@keyframes skipPulse{
+  0%,100%{filter:drop-shadow(0 0 20px rgba(251,191,36,.6))}
+  50%{filter:drop-shadow(0 0 32px rgba(251,191,36,.95))}
+}
+@keyframes neonFloat{
+  0%,100%{transform:translateY(0);filter:brightness(1)}
+  50%{transform:translateY(-2px);filter:brightness(1.15)}
+}
+
+/* ===== HIDE AI CARDS ===== */
+.ai-cards-row{display:none !important}
+
+/* ===== REVERSE CARD ===== */
+.reverse-card{
+  display:none;
+  margin:14px 0;
+  padding:16px;
+  background:linear-gradient(135deg,rgba(255,45,85,.16),rgba(0,102,255,.16));
+  border:1.5px solid rgba(255,45,85,.55);
+  border-radius:16px;position:relative;overflow:hidden;
+  box-shadow:0 0 24px rgba(255,45,85,.25),inset 0 1px 0 rgba(255,255,255,.08);
+  z-index:1;
+}
+.reverse-card.show{
+  display:block;
+  animation:reverseCardIn .55s cubic-bezier(.175,.885,.32,1.275);
+}
+@keyframes reverseCardIn{
+  0%{opacity:0;transform:scale(.85) rotateX(-20deg)}
+  60%{opacity:1;transform:scale(1.03) rotateX(2deg)}
+  100%{opacity:1;transform:scale(1) rotateX(0)}
+}
+.reverse-card::before{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
+  animation:reverseShine 2.2s ease-in-out infinite;
+}
+@keyframes reverseShine{0%,50%{left:-100%}100%{left:100%}}
+.reverse-title{
+  text-align:center;font-size:11px;font-weight:800;letter-spacing:3px;
+  color:#ff6b8a;margin-bottom:12px;font-family:var(--font-display);
+  text-shadow:0 0 10px rgba(255,45,85,.7);
+  position:relative;z-index:1;
+}
+.reverse-flow{
+  display:flex;justify-content:center;align-items:center;gap:22px;
+  position:relative;z-index:1;
+}
+.rev-orig{
+  font-family:var(--font-display);font-size:24px;font-weight:700;
+  color:#6b6b8a;text-decoration:line-through;opacity:.55;letter-spacing:1px;
+}
+.rev-arrow{
+  font-size:28px;color:#00e5ff;display:inline-block;
+  animation:revArrowSpin 1.4s ease-in-out infinite;
+  text-shadow:0 0 14px #00e5ff,0 0 28px rgba(0,229,255,.5);
+  line-height:1;
+}
+@keyframes revArrowSpin{
+  0%,100%{transform:rotate(0deg) scale(1)}
+  50%{transform:rotate(180deg) scale(1.18)}
+}
+.rev-final{
+  font-family:var(--font-display);font-size:34px;font-weight:700;letter-spacing:1px;
+}
+.rev-final.B{
+  color:#00e5ff;
+  text-shadow:0 0 22px #0066ff,0 0 44px #0066ff,0 0 66px rgba(0,102,255,.5);
+  animation:revFinalGlowB 1.4s ease-in-out infinite;
+}
+.rev-final.S{
+  color:#ff2d55;
+  text-shadow:0 0 22px #ff2d55,0 0 44px #ff2d55,0 0 66px rgba(255,45,85,.5);
+  animation:revFinalGlowS 1.4s ease-in-out infinite;
+}
+@keyframes revFinalGlowB{0%,100%{transform:scale(1)}50%{transform:scale(1.09)}}
+@keyframes revFinalGlowS{0%,100%{transform:scale(1)}50%{transform:scale(1.09)}}
+
+/* ===== LEVEL ROW ===== */
+.level-row{display:flex;justify-content:space-between;gap:8px;margin-top:14px;margin-bottom:12px;position:relative;z-index:1}
+.l-box{
+  flex:1;background:linear-gradient(135deg,rgba(255,45,85,.09),rgba(0,102,255,.09));
+  border:1px solid rgba(255,45,85,.22);border-radius:12px;padding:9px 12px;text-align:center;
+  display:flex;justify-content:space-between;align-items:center;transition:all .3s;
+}
+.l-box-multi{flex-direction:column;align-items:stretch;gap:3px;justify-content:center}
+.l-main{display:flex;justify-content:space-between;align-items:center;width:100%}
+.l-title{font-size:9px;color:var(--muted);font-weight:800;letter-spacing:1px;font-family:var(--font-display)}
+.l-val{
+  font-family:var(--font-tech);font-size:13px;font-weight:900;
+  background:linear-gradient(135deg,#ff2d55,#0066ff);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.l-time{
+  font-size:8px;color:var(--muted);font-family:var(--font-tech);
+  letter-spacing:.4px;text-align:right;font-weight:700;opacity:.85;
+  margin-top:1px;
+}
+
+/* ===== BOXES TRAIL ===== */
+.boxes{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;position:relative;z-index:1}
+.box{
+  aspect-ratio:1;border-radius:6px;background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;color:#4b4b63;transition:all .3s;
+  font-family:var(--font-tech);
+}
+.box.B{
+  background:linear-gradient(135deg,rgba(0,229,255,.28),rgba(0,102,255,.28));
+  color:#b8ecff;border-color:rgba(0,229,255,.7);box-shadow:0 0 12px rgba(0,102,255,.35);
+}
+.box.S{
+  background:linear-gradient(135deg,rgba(255,107,138,.28),rgba(255,45,85,.28));
+  color:#ffd0d8;border-color:rgba(255,45,85,.7);box-shadow:0 0 12px rgba(255,45,85,.35);
+}
+
+/* ===== HISTORY ===== */
+.history-panel{
+  background:linear-gradient(145deg,rgba(24,18,36,.88),rgba(8,6,14,.92));
+  border:1px solid rgba(255,45,85,.22);border-radius:22px;padding:16px;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  box-shadow:0 22px 56px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.07);
+}
+.history-title{
+  font-size:13px;letter-spacing:5px;font-weight:800;margin-bottom:16px;text-align:center;
+  text-transform:uppercase;font-family:var(--font-display);
+  background:linear-gradient(135deg,#ff2d55,#ffffff,#0066ff);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 8px rgba(255,45,85,.3));
+}
+.history-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px}
+.hstat{background:rgba(0,0,0,.4);border:1px solid rgba(255,45,85,.2);border-radius:12px;padding:9px 4px;text-align:center}
+.hstat-label{font-size:8px;color:var(--muted);font-weight:800;letter-spacing:1px;margin-bottom:3px;text-transform:uppercase;font-family:var(--font-display)}
+.hstat-value{font-size:15px;font-weight:800;font-family:var(--font-tech)}
+.hstat-value.win{color:var(--win);text-shadow:0 0 10px rgba(34,197,94,.55)}
+.hstat-value.loss{color:var(--spider-red);text-shadow:0 0 10px rgba(255,45,85,.55)}
+.hstat-value.skip{color:var(--gold);text-shadow:0 0 10px rgba(251,191,36,.55)}
+.hstat-value.pending{color:var(--spider-cyan);text-shadow:0 0 10px rgba(0,229,255,.55)}
+
+.history-table-wrap{border-radius:14px;background:rgba(0,0,0,.32);border:1px solid rgba(255,45,85,.18);overflow:hidden}
+.history-table{width:100%;border-collapse:collapse;font-size:10px;table-layout:fixed}
+.history-table th{
+  color:var(--muted);font-size:8px;padding:9px 4px;text-transform:uppercase;letter-spacing:1px;
+  font-weight:800;border-bottom:1px solid rgba(255,255,255,.06);
+  background:rgba(255,255,255,.02);font-family:var(--font-display);
+}
+.history-table th:nth-child(1){width:28px}
+.history-table th:nth-child(2){width:auto}
+.history-table th:nth-child(3){width:52px}
+.history-table th:nth-child(4){width:44px}
+.history-table th:nth-child(5){width:34px}
+.history-table td{padding:8px 3px;text-align:center;border-bottom:1px solid rgba(255,255,255,.03);font-weight:600;color:#c9cbe0}
+.history-table tr:last-child td{border-bottom:none}
+.history-table .mono{font-size:7.5px;color:#7d8199;font-family:monospace;word-break:break-all;line-height:1.25;letter-spacing:-.2px;padding:6px 2px}
+.history-table .icon-win{color:var(--win);font-size:12px}
+.history-table .icon-loss{color:var(--spider-red);font-size:12px}
+.history-table .icon-skip{color:var(--gold);font-size:12px}
+.history-table .icon-pending{color:var(--spider-cyan);font-size:12px}
+.empty-msg{color:#5c6077;font-size:10px;padding:22px 0!important;text-align:center}
+
+/* SKIP BADGE IN HISTORY */
+.skip-badge{
+  display:inline-block;color:#fbbf24;font-weight:900;font-size:9px;letter-spacing:1.5px;
+  font-family:var(--font-tech);
+  text-shadow:0 0 6px #fbbf24,0 0 12px #fbbf24,0 0 18px rgba(251,191,36,.5);
+  animation:skipBadgeGlow 1.2s ease-in-out infinite;
+}
+@keyframes skipBadgeGlow{
+  0%,100%{text-shadow:0 0 6px #fbbf24,0 0 12px #fbbf24,0 0 18px rgba(251,191,36,.5);transform:scale(1)}
+  50%{text-shadow:0 0 10px #fbbf24,0 0 22px #fbbf24,0 0 32px rgba(251,191,36,.9);transform:scale(1.1)}
+}
+.history-table tr.skip-row{animation:skipRowGlow 2s ease-in-out infinite}
+@keyframes skipRowGlow{
+  0%,100%{background:rgba(251,191,36,.04)}
+  50%{background:rgba(251,191,36,.12)}
+}
+
+/* ===== LEVEL WIN RECORD ===== */
+.level-stats-panel{margin-top:12px;padding-top:4px}
+.level-stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.level-stat{background:rgba(0,0,0,.35);border:1px solid rgba(0,229,255,.18);border-radius:10px;padding:10px 4px;text-align:center}
+.level-stat span{display:block;font-size:9px;color:var(--muted);font-weight:800;letter-spacing:.5px}
+.level-stat strong{display:block;margin-top:5px;font:900 17px var(--font-tech);color:var(--win)}
+.level-summary{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}
+.level-summary>div{padding:10px;background:rgba(255,255,255,.035);border:1px solid var(--stroke);border-radius:10px;text-align:center}
+.level-summary span{display:block;color:var(--muted);font-size:8px;font-weight:800;letter-spacing:.5px}
+.level-summary strong{display:block;color:var(--gold);font:900 17px var(--font-tech);margin-top:4px}
+
+/* ===== WIN OVERLAY ===== */
+#winOverlay{
+  position:fixed;inset:0;background:rgba(5,5,15,.9);z-index:9999;
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  pointer-events:none;opacity:0;transition:opacity .3s;backdrop-filter:blur(10px);
+}
+#winOverlay.show{display:flex;opacity:1}
+.win-trophy{
+  font-size:130px;animation:winPop .6s cubic-bezier(.175,.885,.32,1.275) forwards;
+  filter:drop-shadow(0 0 40px rgba(0,229,255,.9));
+}
+.win-text{
+  font-family:var(--font-display);font-size:48px;font-weight:700;letter-spacing:8px;margin-top:10px;
+  background:linear-gradient(135deg,#00e5ff,#0066ff 50%,#ff2d55);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 30px rgba(0,102,255,.7));
+  animation:slideUp .5s ease-out forwards;
+}
+@keyframes winPop{0%{transform:scale(0) rotate(-45deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes slideUp{0%{transform:translateY(30px);opacity:0}100%{transform:translateY(0);opacity:1}}
+
+/* ===== SKIP OVERLAY ===== */
+#skipOverlay{
+  position:fixed;inset:0;background:rgba(5,5,15,.9);z-index:9998;
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  pointer-events:none;opacity:0;transition:opacity .3s;backdrop-filter:blur(10px);
+}
+#skipOverlay.show{display:flex;opacity:1}
+.skip-icon-big{
+  font-size:120px;color:#fbbf24;
+  filter:drop-shadow(0 0 40px rgba(251,191,36,.9));
+  animation:skipIconPop .7s cubic-bezier(.175,.885,.32,1.275) forwards;
+  line-height:1;
+}
+.skip-text-big{
+  font-family:var(--font-display);font-size:52px;font-weight:700;letter-spacing:10px;
+  color:#fbbf24;margin-top:12px;
+  animation:skipTextPulse 1s ease-in-out infinite;
+}
+.skip-sub{
+  font-family:var(--font-tech);font-size:12px;color:#00e5ff;margin-top:14px;
+  letter-spacing:4px;text-shadow:0 0 12px #00e5ff;
+}
+@keyframes skipIconPop{0%{transform:scale(0) rotate(-90deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+@keyframes skipTextPulse{
+  0%,100%{text-shadow:0 0 20px #fbbf24,0 0 40px #fbbf24,0 0 60px rgba(251,191,36,.5);transform:scale(1)}
+  50%{text-shadow:0 0 30px #fbbf24,0 0 60px #fbbf24,0 0 90px rgba(251,191,36,.9);transform:scale(1.05)}
+}
+
+button{transition:transform .18s ease,filter .18s ease,box-shadow .18s ease}
+button:active{transform:scale(.95);filter:brightness(1.12)}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<div id="winOverlay">
+  <div class="win-trophy">🏆</div>
+  <div class="win-text">WIN !</div>
+</div>
+
+<div id="skipOverlay">
+  <div class="skip-icon-big">⊘</div>
+  <div class="skip-text-big">SKIP</div>
+  <div class="skip-sub">NEXT 2 PERIODS</div>
+</div>
+
+<div id="mainApp">
+  <div class="top-header">
+    <div class="brand-name">VIPUL BHAI</div>
+    <div class="mode-toggle">
+      <button class="mode-btn active" id="oneMinBtn" onclick="switchMode('1min')">1 MIN</button>
+      <button class="mode-btn" id="thirtySecBtn" onclick="switchMode('30sec')">30 SEC</button>
+    </div>
+  </div>
+
+  <div class="prediction-panel">
+    <div class="top-info">
+      <span id="periodId">...</span>
+      <div class="timer-ring" id="timerRing">
+        <div class="timer-dot" id="timerDot"></div>
+        <span id="timer">--</span>
+      </div>
+    </div>
+
+    <div class="override-badge" id="overrideBadge">⏸ SKIP MODE</div>
+    <div class="pred-label" id="predLabel">AI PREDICTION</div>
+    <div class="pred-value WAIT" id="predValue">WAIT</div>
+
+    <div class="reverse-card" id="reverseCard">
+      <div class="reverse-title">🔄 REVERSE FLIP</div>
+      <div class="reverse-flow">
+        <span class="rev-orig" id="reverseOriginal">BIG</span>
+        <span class="rev-arrow">⇄</span>
+        <span class="rev-final B" id="reverseFinal">SMALL</span>
+      </div>
+    </div>
+
+    <div class="ai-cards-row">
+      <div class="ai-card"><div class="ai-card-title">COMBO</div><div class="ai-card-val WAIT" id="valCombo">—</div></div>
+      <div class="ai-card"><div class="ai-card-title">PERSONAL</div><div class="ai-card-val WAIT" id="valPersonal">—</div></div>
+      <div class="ai-card"><div class="ai-card-title">TRICK</div><div class="ai-card-val WAIT" id="valTrick">—</div></div>
+    </div>
+
+    <div class="level-row">
+      <div class="l-box l-box-multi">
+        <div class="l-main">
+          <span class="l-title">HIGHEST:</span>
+          <span class="l-val" id="highestLevelDisplay">L1</span>
+        </div>
+        <div class="l-time" id="highestLevelTime">—</div>
+      </div>
+      <div class="l-box" id="currentLevelBox">
+        <span class="l-title">CURRENT:</span>
+        <span class="l-val" id="currentLevelDisplay">L1</span>
+      </div>
+    </div>
+
+    <div class="boxes" id="boxes"></div>
+  </div>
+
+  <div class="history-panel">
+    <div class="history-title">HISTORY</div>
+    <div class="history-stats">
+      <div class="hstat"><div class="hstat-label">WIN</div><div class="hstat-value win" id="hWin">0</div></div>
+      <div class="hstat"><div class="hstat-label">LOSS</div><div class="hstat-value loss" id="hLoss">0</div></div>
+      <div class="hstat"><div class="hstat-label">SKIP</div><div class="hstat-value skip" id="hSkip">0</div></div>
+      <div class="hstat"><div class="hstat-label">PEND</div><div class="hstat-value pending" id="hPend">0</div></div>
+    </div>
+    <div class="history-table-wrap">
+      <table class="history-table">
+        <thead><tr><th>#</th><th>PERIOD</th><th>PRED</th><th>ACT</th><th>R</th></tr></thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </div>
+    <div class="level-stats-panel">
+      <div class="history-title" style="margin-top:18px;margin-bottom:10px">LEVEL WIN RECORD</div>
+      <div class="level-stats-grid" id="levelStatsGrid"></div>
+      <div class="level-summary">
+        <div><span>HIGHEST LEVEL REACHED</span><strong id="highestReachedCount">0</strong></div>
+        <div><span>HIGHEST-LEVEL RUN RESET</span><strong id="highestResetCount">0</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== WIN SOUND LOGIC ===== */
+let audioCtx = null;
+function initAudio() {
+    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+}
+function playWinSound() {
+    if(!audioCtx) return;
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+    const notes = [523.25, 659.25, 783.99, 1046.50];
+    const duration = 0.12;
+    notes.forEach((freq, index) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.value = freq;
+        const startTime = audioCtx.currentTime + (index * duration);
+        gain.gain.setValueAtTime(0, startTime);
+        gain.gain.linearRampToValueAtTime(0.6, startTime + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.01, startTime + duration + 0.2);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(startTime); osc.stop(startTime + duration + 0.2);
+    });
+}
+document.body.addEventListener('touchstart', initAudio, {once: true});
+document.body.addEventListener('click', initAudio, {once: true});
+
+/* ===== CORE LOGIC: COMEBACK & PERSONAL ===== */
+const KEY_MAP={'0000':'B','0101':'S','0202':'S','0303':'B','0404':'S','0505':'S','0606':'B','0707':'B','0808':'S','0909':'S','1010':'S','1111':'S','1212':'B','1313':'S','1414':'B','1515':'S','1616':'B','1717':'S','1818':'S','1919':'S','2020':'B','2121':'S','2222':'S','2323':'S','2424':'B','2525':'S','2626':'S','2727':'S','2828':'S','2929':'S','3030':'S','3131':'S','3232':'S','3333':'S','3434':'S','3535':'B','3636':'B','3737':'B','3838':'S','3939':'S','4040':'S','4141':'S','4242':'B','4343':'B','4444':'S','4545':'B','4646':'S','4747':'S','4848':'S','4949':'B','5050':'S','5151':'S','5252':'S','5353':'S','5454':'B','5555':'S','5656':'S','5757':'S','5858':'S','5959':'B','6060':'S','6161':'S','6262':'S','6363':'S','6464':'S','6565':'B','6666':'S','6767':'S','6868':'B','6969':'S','7070':'B','7171':'S','7272':'S','7373':'B','7474':'S','7575':'B','7676':'S','7777':'S','7878':'S','7979':'S','8080':'B','8181':'B','8282':'S','8383':'S','8484':'B','8585':'S','8686':'B','8787':'B','8888':'S','8989':'B','9090':'S','9191':'S','9292':'S','9393':'B','9494':'S','9595':'S','9696':'B','9797':'B','9898':'B','9999':'S'};
+const NUMBER_CHART=['B','B','S','S','B','B','S','S','B','B','S','B','S','B','S','S','S','B','S','B','S','S','S','B','B','B','S','S','S','B','S','S','B','S','B','S','B','S','B','S','S','S','S','B','B','S','S','S','B','B','S','S','S','S','S','S','S','S','B','B','S','B','B','B','S','B','B','B','B','B','S','B','S','B','B','B','B','S','B','S','S','B','B','S','S','S','B','S','S','B','B','B','S','B','S','B','B','S','S','B'];
+
+function getVipCoreVote(seqChrono){
+  if(!Array.isArray(seqChrono)||seqChrono.length<5)return null;
+  const bits=seqChrono.map(x=>x==='B'?1:0);
+  const n=bits.length;
+  const vWin=bits.slice(-Math.min(5,n));
+  const vSum=vWin.reduce((a,b)=>a+b,0);
+  const vVote=vSum%2===0?'B':'S';
+  const last2=bits.slice(-2);
+  const iVal=last2[0]*2+last2[1];
+  const iVote=iVal>=2?'B':'S';
+  const last3=bits.slice(-3).join('');
+  const colorMap={'000':'S','001':'S','010':'B','011':'B','100':'B','101':'S','110':'B','111':'S'};
+  const pVote=colorMap[last3]||'S';
+  let bV=0,sV=0;
+  if(vVote==='B')bV++;else sV++;
+  if(iVote==='B')bV++;else sV++;
+  if(pVote==='B')bV++;else sV++;
+  let aiVal; if(bV>sV)aiVal='B'; else if(sV>bV)aiVal='S'; else {const avg=bits.reduce((a,b)=>a+b,0)/n;aiVal=avg>=0.5?'S':'B';}
+  return{value:aiVal,weight:3.2};
+}
+
+function getComebackVote(seqChrono,periodId){
+  const last2=periodId.slice(-2),key=last2+last2;
+  const keyMapVote=KEY_MAP[key];
+  const numVote=chartNum1!==null?NUMBER_CHART[chartNum1]:null;
+  const votes=[];
+  if(keyMapVote) votes.push({value:keyMapVote, weight:1});
+  if(numVote) votes.push({value:numVote, weight:1});
+  if(votes.length===0) return null;
+  const bW=votes.filter(v=>v.value==='B').reduce((s,v)=>s+v.weight,0);
+  const sW=votes.filter(v=>v.value==='S').reduce((s,v)=>s+v.weight,0);
+  if(bW===sW) return null;
+  return {value: bW>sW?'B':'S', weight:3.5};
+}
+
+function akatsukiComputeBSWeights(bs){
+  if(!bs.length||bs.length<3){const r=Math.random();return {B:r,S:1-r}}
+  let streak=1;
+  for(let i=1;i<Math.min(bs.length,8);i++){if(bs[i]===bs[0])streak++;else break}
+  let wB=0.5,wS=0.5;
+  if(streak>=4){if(bs[0]==='B'){wB+=0.32;wS-=0.32}else{wS+=0.32;wB-=0.32}}
+  else if(streak>=3){if(bs[0]==='B'){wB+=0.22;wS-=0.22}else{wS+=0.22;wB-=0.22}}
+  else if(streak>=2){if(bs[0]==='B'){wB+=0.10;wS-=0.10}else{wS+=0.10;wB-=0.10}}
+  const last10=bs.slice(0,10);
+  const bCnt=last10.filter(x=>x==='B').length;
+  const sCnt=last10.length-bCnt;
+  if(bCnt>=8){wB+=0.26;wS-=0.26}else if(bCnt>=7){wB+=0.18;wS-=0.18}else if(bCnt>=6){wB+=0.08;wS-=0.08}
+  if(sCnt>=8){wS+=0.26;wB-=0.26}else if(sCnt>=7){wS+=0.18;wB-=0.18}else if(sCnt>=6){wS+=0.08;wB-=0.08}
+  return {B: Math.max(0.05,Math.min(0.95,wB)), S: Math.max(0.05,Math.min(0.95,wS))};
+}
+function getAkatsukiVote(seqChrono){
+  if(seqChrono.length<3)return null;
+  const bs=seqChrono.slice().reverse();
+  const ws=akatsukiComputeBSWeights(bs);
+  return {value: ws.B>=ws.S?'B':'S', weight:3.0};
+}
+function getCOMBO_Card_Vote(seq,periodId){
+  const v1=getVipCoreVote(seq);
+  const v2=getComebackVote(seq,periodId);
+  const v3=getAkatsukiVote(seq);
+  const votes=[v1,v2,v3].filter(v=>v!==null);
+  if(votes.length===0)return null;
+  const bW=votes.filter(v=>v.value==='B').reduce((s,v)=>s+v.weight,0);
+  const sW=votes.filter(v=>v.value==='S').reduce((s,v)=>s+v.weight,0);
+  return bW>=sW?'B':'S';
+}
+
+function getNexaCoreVote(seqChrono){
+  if(seqChrono.length<5)return null;
+  const bits=seqChrono.map(x=>x==='B'?1:0);
+  const last4=bits.slice(-4).join('');
+  let matchB=0,matchS=0;
+  for(let i=0;i<bits.length-4;i++){
+    if(bits.slice(i,i+4).join('')===last4){ if(bits[i+4]===1)matchB++; else matchS++; }
+  }
+  let big=0,small=0;
+  if(matchB!==matchS){if(matchB>matchS)big+=35;else small+=35;}
+  const shortMA=bits.slice(-5).reduce((a,b)=>a+b,0)/5;
+  const longMA=bits.slice(-20).reduce((a,b)=>a+b,0)/bits.slice(-20).length;
+  if(shortMA>longMA&&shortMA>0.5)big+=20; else if(shortMA<longMA&&shortMA<0.5)small+=20;
+  const ratio=bits.slice(-15).reduce((a,b)=>a+b,0)/15;
+  if(ratio>=0.8)big+=55; else if(ratio<=0.2)small+=55;
+  let val; if(big>small)val='B'; else if(small>big)val='S'; else val=shortMA>longMA?'B':'S';
+  return {value:val, weight:4};
+}
+
+function getOmniEnsembleVote(seqChrono, allHistory){
+  const allResults=[];
+  if(Array.isArray(allHistory)){
+    for(const h of allHistory){if(h&&(h.actual==='B'||h.actual==='S'))allResults.push(h.actual)}
+  }
+  if(Array.isArray(seqChrono)){
+    for(const x of seqChrono){if(x==='B'||x==='S')allResults.push(x)}
+  }
+  const recent=allResults.slice(-20).reverse();
+  if(recent.length<3)return null;
+  const nums=recent.map(v=>v==='B'?7:2);
+  let big=0,small=0;
+  const avg=nums.reduce((a,b)=>a+b,0)/nums.length;
+  const variance=nums.reduce((a,b)=>a+Math.pow(b-avg,2),0)/nums.length;
+  const stdDev=Math.sqrt(variance);
+  if(avg>4.5+(stdDev*0.15))big+=35000000;
+  else if(avg<4.5-(stdDev*0.15))small+=35000000;
+  else{small+=17500000;big+=17500000}
+  let cons=1;
+  for(let i=0;i<recent.length-1;i++){if(recent[i]===recent[i+1])cons++;else break;}
+  if(cons>=4){recent[0]==='B'?big+=cons*15000000:small+=cons*15000000}
+  else if(cons===1){recent[0]==='B'?big+=28000000:small+=28000000}
+  else{recent[0]==='B'?big+=25000000:small+=25000000}
+  return {value: big>small?'B':'S', weight:2};
+}
+
+function getPERSONAL_Card_Vote(seq, history){
+  const v1=getNexaCoreVote(seq);
+  const v2=getOmniEnsembleVote(seq, history);
+  const votes=[v1,v2].filter(v=>v!==null);
+  if(votes.length===0)return null;
+  const bW=votes.filter(v=>v.value==='B').reduce((s,v)=>s+v.weight,0);
+  const sW=votes.filter(v=>v.value==='S').reduce((s,v)=>s+v.weight,0);
+  return bW>=sW?'B':'S';
+}
+
+/* ===== TRICK LOGIC ===== */
+function lg_getSize(n){ return n >= 5 ? 'BIG' : 'SMALL'; }
+
+function lg_pickNumberFor(nums, size){
+  if(!nums.length) return null;
+  const pool = size === 'BIG' ? [5,6,7,8,9] : [0,1,2,3,4];
+  const freq = {};
+  nums.forEach(n => freq[n] = (freq[n]||0) + 1);
+  const gap = {};
+  pool.forEach(d => { const idx = nums.indexOf(d); gap[d] = idx === -1 ? nums.length : idx; });
+  const scored = pool.map(n => ({ n, score:(freq[n]||0)*2 + (gap[n]||0)*1.5 }));
+  scored.sort((a,b)=> b.score - a.score);
+  return scored[0]?.n ?? pool[0];
+}
+
+function lg_computeBSWeights(nums){
+  if(nums.length < 3) return { BIG:0.5, SMALL:0.5 };
+  const bsh = nums.map(lg_getSize);
+  let streak = 1;
+  for(let i=1;i<Math.min(bsh.length,8);i++){ if(bsh[i]===bsh[0]) streak++; else break; }
+  let wB = 0.5, wS = 0.5;
+  if(streak >= 4){ if(bsh[0]==='BIG'){ wS+=0.32; wB-=0.32; } else { wB+=0.32; wS-=0.32; } }
+  else if(streak >= 3){ if(bsh[0]==='BIG'){ wS+=0.22; wB-=0.22; } else { wB+=0.22; wS-=0.22; } }
+  else if(streak >= 2){ if(bsh[0]==='BIG'){ wS+=0.10; wB-=0.10; } else { wB+=0.10; wS-=0.10; } }
+  const last10 = bsh.slice(0,10);
+  const bCnt = last10.filter(x=>x==='BIG').length;
+  const sCnt = 10 - bCnt;
+  if(bCnt >= 8){ wS+=0.26; wB-=0.26; }
+  else if(bCnt >= 7){ wS+=0.18; wB-=0.18; }
+  else if(bCnt >= 6){ wS+=0.08; wB-=0.08; }
+  if(sCnt >= 8){ wB+=0.26; wS-=0.26; }
+  else if(sCnt >= 7){ wB+=0.18; wS-=0.18; }
+  else if(sCnt >= 6){ wB+=0.08; wS-=0.08; }
+  let alt = 0;
+  const L = Math.min(bsh.length-1, 12);
+  for(let i=0;i<L;i++) if(bsh[i]!==bsh[i+1]) alt++;
+  const altRate = alt / Math.max(1, L);
+  if(altRate > 0.72){ if(bsh[0]==='BIG'){ wS+=0.20; wB-=0.20; } else { wB+=0.20; wS-=0.20; } }
+  else if(altRate < 0.28){ if(bsh[0]==='BIG'){ wB+=0.12; wS-=0.12; } else { wS+=0.12; wB-=0.12; } }
+  const trans = Array(10).fill(null).map(()=>Array(10).fill(0));
+  for(let i=1;i<nums.length;i++) trans[nums[i-1]][nums[i]]++;
+  const tr = trans[nums[0]];
+  const tot = tr.reduce((a,b)=>a+b,0);
+  if(tot > 2){
+    let tB = 0, tS = 0;
+    for(let i=0;i<10;i++){ if(i>=5) tB+=tr[i]; else tS+=tr[i]; }
+    const frac = tB / tot;
+    wB += (frac - 0.5) * 0.30;
+    wS -= (frac - 0.5) * 0.30;
+  }
+  wB = Math.max(0.05, Math.min(0.95, wB));
+  wS = Math.max(0.05, Math.min(0.95, wS));
+  const tot2 = wB + wS;
+  return { BIG: wB/tot2, SMALL: wS/tot2 };
+}
+
+function lg_nextIssueId(issue){
+  const value = String(issue ?? '');
+  const match = value.match(/^(.*?)(\d+)$/);
+  if(!match) return null;
+  try {
+    const next = (BigInt(match[2]) + 1n).toString().padStart(match[2].length, '0');
+    return match[1] + next;
+  } catch(e) { return null; }
+}
+
+function lg_logic_drago_noname(ctx){
+  const { nums } = ctx;
+  if(nums.length < 3) return null;
+  const ws = lg_computeBSWeights(nums);
+  const size = ws.BIG >= ws.SMALL ? 'BIG' : 'SMALL';
+  return { prediction:size, number:lg_pickNumberFor(nums, size), reason:`wts B${ws.BIG.toFixed(2)}/S${ws.SMALL.toFixed(2)}` };
+}
+
+function lg_logic_kingvip(ctx){
+  const { period } = ctx;
+  if(!period) return null;
+  const last1 = parseInt(period.slice(-1), 10);
+  const last3 = parseInt(period.slice(-3), 10);
+  if(isNaN(last1) || isNaN(last3)) return null;
+  const val = (last1 * 7 + last3) % 10;
+  return { prediction: val >= 5 ? 'BIG' : 'SMALL', number: val, reason:`AI(${last3})→${val}` };
+}
+
+function lg_logic_wolfcore(ctx){
+  const { nums } = ctx;
+  if(nums.length < 8) return null;
+  const last20 = nums.slice(0, Math.min(20, nums.length));
+  const last10Sizes = last20.slice(0, Math.min(10, last20.length)).map(lg_getSize);
+  let bigW = 0, smallW = 0;
+  const markovMatrix = last20.reduce((acc,val,idx)=>{
+    if(idx < last20.length-1) acc += Math.abs(val - last20[idx+1]);
+    return acc;
+  }, 0);
+  const vol = markovMatrix / (last20.length - 1);
+  const avg = last20.reduce((a,b)=>a+b,0) / last20.length;
+  const variance = last20.reduce((a,b)=>a+Math.pow(b-avg,2),0) / last20.length;
+  const stdDev = Math.sqrt(variance);
+  if(avg > 4.5 + stdDev*0.15) bigW += 35;
+  else if(avg < 4.5 - stdDev*0.15) smallW += 35;
+  else { smallW += 17.5; bigW += 17.5; }
+  let cons = 1;
+  for(let i=0;i<Math.min(9, last10Sizes.length-1);i++){
+    if(last10Sizes[i]===last10Sizes[i+1]) cons++; else break;
+  }
+  if(cons >= 4){ if(last10Sizes[0]==='BIG') bigW += cons * 15; else smallW += cons * 15; }
+  else if(cons === 1){ if(last10Sizes[0]==='BIG') bigW += 28; else smallW += 28; }
+  else { if(last10Sizes[0]==='BIG') bigW += 25; else smallW += 25; }
+  const gap = Math.abs(last20[0] - last20[1]);
+  const harm = Math.sin(gap) + Math.cos(vol);
+  if(harm > 0.5){ if(last20[0] >= 5) bigW += 22; else smallW += 22; }
+  else { if(last20[0] >= 5) smallW += 22; else bigW += 22; }
+  const pred = bigW > smallW ? 'BIG' : 'SMALL';
+  const conf = Math.round((Math.max(bigW,smallW) / (bigW+smallW)) * 100);
+  return { prediction:pred, number:lg_pickNumberFor(nums, pred), reason:`4L ${conf}%` };
+}
+
+function lg_logic_pattern3(ctx){
+  const { sizes, nums } = ctx;
+  if(sizes.length < 6) return null;
+  const currentPat = sizes.slice(0,3).reverse().join('-');
+  let bCnt = 0, sCnt = 0, matches = 0;
+  for(let i=1;i<sizes.length-4;i++){
+    const pat = sizes.slice(i, i+3).reverse().join('-');
+    if(pat === currentPat){
+      matches++;
+      const next = sizes[i-1];
+      if(next === 'BIG') bCnt++; else sCnt++;
+    }
+  }
+  let pred;
+  if(matches === 0) pred = sizes[0];
+  else pred = bCnt >= sCnt ? 'BIG' : 'SMALL';
+  return { prediction: pred, number: lg_pickNumberFor(nums, pred), reason: matches > 0 ? `${currentPat} ×${matches}→${pred}` : 'trend-follow' };
+}
+
+function lg_logic_mayank(ctx){
+  const { sizes, nums } = ctx;
+  if(sizes.length < 3) return null;
+  let cons = 1;
+  for(let i=1;i<sizes.length;i++){ if(sizes[i]===sizes[0]) cons++; else break; }
+  if(cons >= 5){ const pred = sizes[0]; return { prediction:pred, number:lg_pickNumberFor(nums, pred), reason:`TREND-CONTINUE ×${cons}` }; }
+  return { prediction:'BIG', number:5, reason:'DEFAULT-BIG' };
+}
+
+function lg_logic_twolevel(ctx){
+  const { nums, sizes } = ctx;
+  if(sizes.length < 5) return null;
+  const big6 = sizes.slice(0,6).filter(s=>s==='BIG').length;
+  const ratio = big6 / Math.min(6, sizes.length);
+  let alt = 0;
+  const L = Math.min(5, sizes.length-1);
+  for(let i=0;i<L;i++) if(sizes[i]!==sizes[i+1]) alt++;
+  const altRate = alt / Math.max(1,L);
+  let streak = 1;
+  for(let i=1;i<sizes.length;i++){ if(sizes[i]===sizes[0]) streak++; else break; }
+  let l1Trend, l1Strength;
+  if(streak >= 3){ l1Trend = sizes[0]; l1Strength = 0.85; }
+  else if(altRate > 0.7){ l1Trend = ratio >= 0.5 ? 'BIG' : 'SMALL'; l1Strength = 0.75; }
+  else if(ratio > 0.65){ l1Trend = 'BIG'; l1Strength = ratio; }
+  else if(ratio < 0.35){ l1Trend = 'SMALL'; l1Strength = 1-ratio; }
+  else { const avg5 = nums.slice(0,5).reduce((a,b)=>a+b,0) / Math.min(5, nums.length); l1Trend = avg5 >= 4.5 ? 'BIG' : 'SMALL'; l1Strength = 0.6; }
+  let l2Trend = 'BIG', l2CycleMatch = false;
+  if(sizes.length >= 8){
+    const big15 = sizes.slice(0,Math.min(15,sizes.length)).filter(s=>s==='BIG').length;
+    const bigRatio = big15 / Math.min(15, sizes.length);
+    if(bigRatio > 0.55) l2Trend = 'BIG';
+    else if(bigRatio < 0.45) l2Trend = 'SMALL';
+    else l2Trend = l1Trend;
+    const blocks = {};
+    for(let i=0;i<Math.min(16,sizes.length);i+=2){ const b = sizes.slice(i,i+2).join(''); blocks[b] = (blocks[b]||0)+1; }
+    const top = Object.entries(blocks).sort((a,b)=>b[1]-a[1])[0];
+    if(top && top[1] / Math.max(1, Math.ceil(Math.min(16,sizes.length)/2)) > 0.55) l2CycleMatch = true;
+  }
+  const agree = l1Trend === l2Trend;
+  const pred = agree ? l1Trend : (l2CycleMatch ? l2Trend : l1Trend);
+  return { prediction: pred, number: lg_pickNumberFor(nums, pred), reason: agree ? 'L1+L2 agree' : 'L2 macro override' };
+}
+
+function lg_logic_dragon_empire(ctx){
+  const { sizes, nums } = ctx;
+  if(sizes.length < 3) return null;
+  const trend = sizes.slice(0,3);
+  const pred = trend.filter(x=>x==='BIG').length >= 2 ? 'BIG' : 'SMALL';
+  return { prediction:pred, number:lg_pickNumberFor(nums, pred), reason:'3-trend vote' };
+}
+
+function lg_logic_elitev3(ctx){
+  const { nums, sizes, period } = ctx;
+  if(nums.length < 3) return null;
+  let streak = 1;
+  for(let i=0;i<sizes.length-1 && sizes[i]===sizes[i+1];i++) streak++;
+  let pred, pattern;
+  if(streak >= 2){ pred = sizes[0]; pattern = 'CONTINUITY'; }
+  else { const bigs = sizes.slice(0,8).filter(x=>x==='BIG').length; pred = bigs >= 4 ? 'BIG' : 'SMALL'; pattern = 'BIAS'; }
+  const last = nums.slice(0, Math.min(16, nums.length));
+  const range = pred === 'SMALL' ? [0,1,2,3,4] : [5,6,7,8,9];
+  const freq = Object.fromEntries(range.map(n=>[n,0]));
+  last.forEach(n => { if(freq[n]!==undefined) freq[n]++; });
+  const hash = Number(String(period||'').slice(-4)) || 0;
+  range.sort((a,b)=> (freq[a]-freq[b]) || (a-b));
+  const overdue = range[0];
+  const mixed = range[hash % range.length];
+  const num = (hash % 3 === 0) ? overdue : mixed;
+  return { prediction:pred, number:num, reason:pattern };
+}
+
+function lg_logic_akatsuki(ctx){
+  const { nums } = ctx;
+  if(nums.length < 3) return null;
+  const ws = lg_computeBSWeights(nums);
+  const size = ws.BIG >= ws.SMALL ? 'BIG' : 'SMALL';
+  return { prediction:size, number:lg_pickNumberFor(nums, size), reason:`akatsuki B${ws.BIG.toFixed(2)}/S${ws.SMALL.toFixed(2)}` };
+}
+
+function lg_logic_blackgoku(ctx){
+  const { nums, sizes } = ctx;
+  if(nums.length < 4) return null;
+  let mk = null;
+  const tr = {};
+  for(let i=0;i<sizes.length-1;i++){
+    if(!tr[sizes[i]]) tr[sizes[i]] = {};
+    tr[sizes[i]][sizes[i+1]] = (tr[sizes[i]][sizes[i+1]]||0) + 1;
+  }
+  if(tr[sizes[0]]){
+    const nexts = Object.entries(tr[sizes[0]]).sort((a,b)=>b[1]-a[1]);
+    if(nexts.length) mk = nexts[0][0];
+  }
+  let streak = 1;
+  for(let i=1;i<sizes.length;i++){ if(sizes[i]===sizes[0]) streak++; else break; }
+  let mom = null;
+  if(streak >= 3) mom = sizes[0];
+  let reg = null;
+  if(nums.length >= 5){
+    const n = nums.length;
+    let sx=0,sy=0,sxy=0,sx2=0;
+    for(let i=0;i<n;i++){ const x = i, y = nums[i]>=5?1:0; sx+=x; sy+=y; sxy+=x*y; sx2+=x*x; }
+    const denom = n*sx2 - sx*sx;
+    if(denom !== 0){
+      const slope = (n*sxy - sx*sy)/denom;
+      const intercept = (sy - slope*sx)/n;
+      const p = slope*n + intercept;
+      reg = p >= 0.45 ? 'BIG' : 'SMALL';
+    }
+  }
+  let bV = 0, sV = 0;
+  if(mk==='BIG') bV++; else if(mk==='SMALL') sV++;
+  if(mom==='BIG') bV++; else if(mom==='SMALL') sV++;
+  if(reg==='BIG') bV++; else if(reg==='SMALL') sV++;
+  const lastN = nums[0]>=5?'BIG':'SMALL';
+  if(lastN==='BIG') bV += 1.5; else sV += 1.5;
+  const recent = nums.slice(0, Math.min(12, nums.length));
+  const rb = recent.filter(n=>n>=5).length;
+  const rs = recent.length - rb;
+  if(rb > rs) bV += 0.8; else sV += 0.8;
+  if(mom){ if(mom==='BIG') bV += 0.5; else sV += 0.5; }
+  const pred = bV >= sV ? 'BIG' : 'SMALL';
+  return { prediction:pred, number:lg_pickNumberFor(nums, pred), reason:`ensemble ${bV.toFixed(0)}:${sV.toFixed(0)}` };
+}
+
+function lg_logic_numbermod(ctx){
+  const { nums } = ctx;
+  if(nums.length < 3) return null;
+  const len = nums.length;
+  const freq = {};
+  nums.forEach(n => freq[n] = (freq[n]||0)+1);
+  const sortedFreq = Object.entries(freq).sort((a,b)=>b[1]-a[1]);
+  const hot = sortedFreq.filter(([_,f])=> f===sortedFreq[0][1]).map(([k])=>Number(k));
+  const weights = nums.map((_,i)=>(i+1)/len);
+  const wsum = nums.reduce((acc,v,i)=>acc + v*weights[i], 0);
+  const wavg = wsum / weights.reduce((a,b)=>a+b,0);
+  const last3 = nums.slice(0,3);
+  const avg3 = last3.reduce((a,b)=>a+b,0) / Math.max(1,last3.length);
+  const transitions = {};
+  for(let i=0;i<nums.length-1;i++){
+    const from = nums[i], to = nums[i+1];
+    if(!transitions[from]) transitions[from] = {};
+    transitions[from][to] = (transitions[from][to]||0) + 1;
+  }
+  const lastNum = nums[0];
+  const patterns = {};
+  for(let l=2;l<=3;l++){
+    for(let i=0;i<=nums.length-l;i++){
+      const key = nums.slice(i,i+l).join(',');
+      patterns[key] = (patterns[key]||0) + 1;
+    }
+  }
+  const sortedPats = Object.entries(patterns).filter(([_,c])=>c>=2).sort((a,b)=>b[1]-a[1]);
+  const cand = new Map();
+  sortedFreq.forEach(([n,c])=>{ cand.set(Number(n), (cand.get(Number(n))||0) + (c/len)*30); });
+  for(let d=-2;d<=2;d++){ const v = Math.round(wavg + d); if(v>=0 && v<=9) cand.set(v, (cand.get(v)||0) + (12 - Math.abs(d)*3)); }
+  for(let d=-2;d<=2;d++){ const v = Math.round(avg3 + d); if(v>=0 && v<=9) cand.set(v, (cand.get(v)||0) + (10 - Math.abs(d)*2.5)); }
+  if(transitions[lastNum]){
+    const nx = Object.entries(transitions[lastNum]);
+    const t = nx.reduce((s,[_,c])=>s+c, 0);
+    nx.forEach(([to,c])=>{ cand.set(Number(to), (cand.get(Number(to))||0) + (c/t)*20); });
+  }
+  if(sortedPats.length){
+    const pat = sortedPats[0][0].split(',').map(Number);
+    for(let i=0;i<=nums.length-pat.length;i++){
+      let ok = true;
+      for(let j=0;j<pat.length;j++) if(nums[i+j]!==pat[j]){ ok=false; break; }
+      if(ok && i+pat.length < nums.length){ const nx = nums[i+pat.length]; cand.set(nx, (cand.get(nx)||0) + 14); }
+    }
+  }
+  const rBig = nums.slice(0,4).filter(v=>v>=5).length;
+  const rSm = nums.slice(0,4).filter(v=>v<5).length;
+  if(rBig >= 3){ for(let v=5;v<=9;v++) cand.set(v,(cand.get(v)||0)+6); }
+  else if(rSm >= 3){ for(let v=0;v<=4;v++) cand.set(v,(cand.get(v)||0)+6); }
+  hot.forEach(h => cand.set(h, (cand.get(h)||0) + 10));
+  for(let v=0;v<=9;v++) if(!cand.has(v)) cand.set(v, 2);
+  const scored = [];
+  cand.forEach((s, n) => scored.push({ n, s: s + Math.random()*2 }));
+  scored.sort((a,b)=> b.s - a.s);
+  const pick = scored[0].n;
+  return { prediction: pick>=5?'BIG':'SMALL', number: pick, reason:`weighted→#${pick}` };
+}
+
+function lg_logic_target(ctx){
+  const { sizes, nums } = ctx;
+  if(sizes.length < 5) return null;
+  let b = 0, s = 0;
+  for(let i=0;i<5;i++){ if(sizes[i]==='BIG') b++; else s++; }
+  if(b >= 4) return { prediction:'BIG', number:lg_pickNumberFor(nums,'BIG'), reason:`${b}/5 BIG` };
+  if(s >= 4) return { prediction:'SMALL', number:lg_pickNumberFor(nums,'SMALL'), reason:`${s}/5 SMALL` };
+  const pred = sizes[0];
+  return { prediction:pred, number:lg_pickNumberFor(nums,pred), reason:'trend-follow' };
+}
+
+function lg_logic_bmw(ctx){
+  const { nums, sizes } = ctx;
+  if(sizes.length < 3) return null;
+  let streak = 1;
+  for(let i=1;i<Math.min(sizes.length,15);i++){ if(sizes[i]===sizes[0]) streak++; else break; }
+  let wB = 0.5, wS = 0.5;
+  let domName = 'MARKOV', domStrength = 0.05;
+  if(sizes.length >= 3){
+    const ws = lg_computeBSWeights(nums);
+    wB = ws.BIG; wS = ws.SMALL;
+    if(streak >= 3){ wB = 0.5; wS = 0.5; }
+  }
+  if(nums.length >= 6){
+    const key = `${nums[0]},${nums[1]},${nums[2]}`;
+    for(let i=3;i<nums.length-3;i++){
+      if(`${nums[i]},${nums[i+1]},${nums[i+2]}` === key){
+        const dn = nums[i-1];
+        if(dn >= 5) wB += 0.10; else wS += 0.10;
+        if(0.10 > domStrength){ domName = 'PATTERN'; domStrength = 0.10; }
+        break;
+      }
+    }
+  }
+  if(nums.length >= 5){
+    const gap = Array(10).fill(0).map((_,i)=>{ const idx = nums.indexOf(i); return idx === -1 ? nums.length : idx; });
+    const bGap = Math.max(...[0,1,2,3,4].map(x=>gap[x]));
+    const sGap = Math.max(...[5,6,7,8,9].map(x=>gap[x]));
+    if(bGap > sGap) wB += 0.06; else if(sGap > bGap) wS += 0.06;
+    if(0.06 > domStrength){ domName = 'GAP'; domStrength = 0.06; }
+  }
+  if(sizes.length >= 5){
+    let alt = 0;
+    const L = Math.min(sizes.length-1, 8);
+    for(let i=0;i<L;i++) if(sizes[i]!==sizes[i+1]) alt++;
+    const r = alt / Math.max(1,L);
+    if(r >= 0.75 && streak <= 1){
+      if(sizes[0]==='BIG') wB += 0.08; else wS += 0.08;
+      if(0.08 > domStrength){ domName = 'PATTERN-BALANCE'; domStrength = 0.08; }
+    }
+  }
+  if(streak >= 3){
+    const cur = sizes[0];
+    if(streak >= 3){
+      if(cur==='BIG') wB += (streak >= 6 ? 0.46 : 0.26); else wS += (streak >= 6 ? 0.46 : 0.26);
+      domName = streak >= 6 ? 'DRAGON-CONTINUE' : 'DRAGON-RIDE'; domStrength = streak >= 6 ? 0.46 : 0.26;
+    }
+  }
+  const t = wB + wS;
+  wB = Math.max(0.05, Math.min(0.95, wB / t));
+  wS = 1 - wB;
+  const pred = wB >= wS ? 'BIG' : 'SMALL';
+  return { prediction:pred, number:lg_pickNumberFor(nums, pred), reason:`${domName} ${Math.round(Math.max(wB,wS)*100)}%` };
+}
+
+function lg_logic_ragstk(ctx){
+  const { nums } = ctx;
+  if(nums.length < 8) return null;
+  const last20 = nums.slice(0, Math.min(20, nums.length));
+  const last10Sizes = last20.slice(0, Math.min(10, last20.length)).map(lg_getSize);
+  let bigW = 0, smallW = 0;
+  const markovMatrix = last20.reduce((acc,val,idx)=>{
+    if(idx < last20.length-1) acc += Math.abs(val - last20[idx+1]);
+    return acc;
+  }, 0);
+  const vol = markovMatrix / (last20.length - 1);
+  const avg = last20.reduce((a,b)=>a+b,0) / last20.length;
+  const variance = last20.reduce((a,b)=>a+Math.pow(b-avg,2),0) / last20.length;
+  const stdDev = Math.sqrt(variance);
+  if(avg > 4.5 + stdDev*0.15) bigW += 35;
+  else if(avg < 4.5 - stdDev*0.15) smallW += 35;
+  else { smallW += 17.5; bigW += 17.5; }
+  let cons = 1;
+  for(let i=0;i<Math.min(9, last10Sizes.length-1);i++){
+    if(last10Sizes[i]===last10Sizes[i+1]) cons++; else break;
+  }
+  if(cons >= 4){ if(last10Sizes[0]==='BIG') bigW += cons * 15; else smallW += cons * 15; }
+  else if(cons === 1){ if(last10Sizes[0]==='BIG') bigW += 28; else smallW += 28; }
+  else { if(last10Sizes[0]==='BIG') bigW += 25; else smallW += 25; }
+  const gap = Math.abs(last20[0] - last20[1]);
+  const harm = Math.sin(gap) + Math.cos(vol);
+  if(harm > 0.5){ if(last20[0] >= 5) bigW += 22; else smallW += 22; }
+  else { if(last20[0] >= 5) smallW += 22; else bigW += 22; }
+  const pred = bigW > smallW ? 'BIG' : 'SMALL';
+  const conf = Math.round((Math.max(bigW,smallW) / (bigW+smallW)) * 100);
+  return { prediction:pred, number:lg_pickNumberFor(nums, pred), reason:`elite ${conf}%` };
+}
+
+function jarvish_pad2(n){return String(n).padStart(2,'0');}
+const JARVISH_KEY_MAP={'0000':'B','0101':'S','0202':'S','0303':'B','0404':'S','0505':'S','0606':'B','0707':'B','0808':'S','0909':'S','1010':'S','1111':'S','1212':'B','1313':'S','1414':'B','1515':'S','1616':'B','1717':'S','1818':'S','1919':'S','2020':'B','2121':'S','2222':'S','2323':'S','2424':'B','2525':'S','2626':'S','2727':'S','2828':'S','2929':'S','3030':'S','3131':'S','3232':'S','3333':'S','3434':'S','3535':'B','3636':'B','3737':'B','3838':'S','3939':'S','4040':'S','4141':'S','4242':'B','4343':'B','4444':'S','4545':'B','4646':'S','4747':'S','4848':'S','4949':'B','5050':'S','5151':'S','5252':'S','5353':'S','5454':'B','5555':'S','5656':'S','5757':'S','5858':'S','5959':'B','6060':'S','6161':'S','6262':'S','6363':'S','6464':'S','6565':'B','6666':'S','6767':'S','6868':'B','6969':'S','7070':'B','7171':'S','7272':'S','7373':'B','7474':'S','7575':'B','7676':'S','7777':'S','7878':'S','7979':'S','8080':'B','8181':'B','8282':'S','8383':'S','8484':'B','8585':'S','8686':'B','8787':'B','8888':'S','8989':'B','9090':'S','9191':'S','9292':'S','9393':'B','9494':'S','9595':'S','9696':'B','9797':'B','9898':'B','9999':'S'};
+const JARVISH_NUMBER_CHART=['B','B','S','S','B','B','S','S','B','B','S','B','S','B','S','S','S','B','S','B','S','S','S','B','B','B','S','S','S','B','S','S','B','S','B','S','B','S','B','S','S','S','S','B','B','S','S','S','B','B','S','S','S','S','S','S','S','S','B','B','S','B','B','B','S','B','B','B','B','B','S','B','S','B','B','B','B','S','B','S','S','B','B','S','S','S','B','S','S','B','B','B','S','B','S','B','B','S','S','B'];
+const JARVISH_CHART_PATTERNS=[
+  {name:'Single',seq:'BSBSB',pred:'B',length:5},{name:'Single',seq:'SBSBS',pred:'S',length:5},
+  {name:'Double',seq:'SSBBSS',pred:'B',length:6},{name:'Double',seq:'BBSSBB',pred:'S',length:6},
+  {name:'Triple',seq:'BBBSSS',pred:'S',length:6},{name:'Triple',seq:'SSSBBB',pred:'B',length:6},
+  {name:'Quadra',seq:'SSSSBBBB',pred:'B',length:8},{name:'Quadra',seq:'BBBBSSSS',pred:'S',length:8},
+  {name:'Three in One',seq:'BBBSBBB',pred:'B',length:7},{name:'Three in One',seq:'SSSBSSS',pred:'S',length:7},
+  {name:'Two in One',seq:'SSBSSBSS',pred:'S',length:8},{name:'Two in One',seq:'BBSBBSBB',pred:'B',length:8},
+  {name:'Three in Two',seq:'BBBSSBBB',pred:'B',length:8},{name:'Three in Two',seq:'SSSBBSSS',pred:'S',length:8},
+  {name:'Four in One',seq:'SSSSBSSSS',pred:'S',length:9},{name:'Four in One',seq:'BBBBSBBBB',pred:'B',length:9},
+  {name:'Four in Two',seq:'BBBBSSBBBB',pred:'B',length:10},{name:'Four in Two',seq:'SSSSBBSSSS',pred:'S',length:10}
+];
+const JARVISH_FUZZY_THRESHOLD = 0.65;
+
+function jarvish_chartLabel(letter){return letter==='B'?'BIG 🟢':(letter==='S'?'SMALL 🔴':'—')}
+function jarvish_similarity(a,b){if(!a||!b||a.length!==b.length)return 0;let m=0;for(let i=0;i<a.length;i++)if(a[i]===b[i])m++;return m/a.length}
+
+function jarvish_matchChartPattern(seqChrono){
+  if(seqChrono.length<4)return{value:'-',confidence:0,pattern:'None',reason:'4+ values'};
+  const n=seqChrono.length;
+  const tail=len=>seqChrono.slice(-len).join('');
+  const sortedPatterns=[...JARVISH_CHART_PATTERNS].sort((a,b)=>b.length-a.length);
+  for(const p of sortedPatterns){
+    if(n>=p.length&&tail(p.length)===p.seq)return{value:p.pred,confidence:.75,pattern:p.name,reason:`${p.name} exact → ${p.pred}`};
+  }
+  let best=null;
+  for(const p of sortedPatterns){
+    if(n>=p.length){
+      const sim=jarvish_similarity(tail(p.length),p.seq);
+      if(sim>=JARVISH_FUZZY_THRESHOLD&&(!best||sim>best.sim))best={sim,p};
+    }
+  }
+  if(best){
+    const conf=.55+best.sim*.15;
+    const simPct=Math.round(best.sim*100);
+    return{value:best.p.pred,confidence:Math.min(.70,conf),pattern:best.p.name+' (fuzzy)',reason:`${best.p.name} fuzzy ${simPct}% → ${best.p.pred}`};
+  }
+  const last=seqChrono[n-1];let streak=1;
+  for(let i=n-2;i>=0;i--){if(seqChrono[i]===last)streak++;else break}
+  if(streak>=4)return{value:last,confidence:.66,pattern:'Trend Continuation',reason:`${streak}× → continue`};
+  if(streak===3)return{value:last,confidence:.60,pattern:'Triple Trend',reason:'3× → continue'};
+  return{value:'-',confidence:0,pattern:'None',reason:'no match'};
+}
+
+function jarvish_getPatternChartVote(seqChrono){
+  const chart=jarvish_matchChartPattern(seqChrono);
+  if(chart.value!=='-')return{value:chart.value,source:'Pattern',weight:1.5,reason:chart.reason};
+  return null;
+}
+
+function jarvish_getVipCoreVote(seqChrono){
+  if(!Array.isArray(seqChrono)||seqChrono.length<5)return null;
+  const bits=seqChrono.map(x=>x==='B'?1:0);
+  const n=bits.length;
+  const vWin=bits.slice(-Math.min(5,n));
+  const vSum=vWin.reduce((a,b)=>a+b,0);
+  const vVote=vSum%2===0?'B':'S';
+  const last2=bits.slice(-2);
+  const iVal=last2[0]*10+last2[1];
+  const iVote=iVal>5?'B':'S';
+  const last3=bits.slice(-3).join('');
+  const colorMap={'000':'S','001':'S','010':'B','011':'B','100':'B','101':'S','110':'B','111':'S'};
+  const pVote=colorMap[last3]||'S';
+  let bV=0,sV=0;
+  if(vVote==='B')bV++;else sV++;
+  if(iVote==='B')bV++;else sV++;
+  if(pVote==='B')bV++;else sV++;
+  let aiVal;
+  if(bV>sV)aiVal='B';
+  else if(sV>bV)aiVal='S';
+  else{ const avg=bits.reduce((a,b)=>a+b,0)/n; aiVal=avg>=0.5?'S':'B'; }
+  const consensus=Math.max(bV,sV)/3;
+  const confidence=0.60+consensus*0.30;
+  return{ value:aiVal, source:'VIP Core', weight:3.2, confidence };
+}
+
+function jarvish_getKeyMapVote(periodId){
+  if(!periodId||periodId.length<2)return null;
+  const last2=periodId.slice(-2),key=last2+last2;
+  const result=JARVISH_KEY_MAP[key];
+  if(!result)return null;
+  return{value:result,source:'keyMap',weight:1,keyDisplay:key};
+}
+function jarvish_getNumberChartVote(chartNum1){
+  if(chartNum1===null)return null;
+  const res=JARVISH_NUMBER_CHART[chartNum1];
+  if(res!=='B'&&res!=='S')return null;
+  return{value:res,source:'Number',weight:1};
+}
+function jarvish_getComebackVote(seqChrono,periodId,chartNum1){
+  const numVote=jarvish_getNumberChartVote(chartNum1);
+  const patternVote=jarvish_getPatternChartVote(seqChrono);
+  const keyMapVote=jarvish_getKeyMapVote(periodId);
+  const comebackVotes=[];
+  if(numVote)comebackVotes.push(numVote);
+  if(patternVote)comebackVotes.push(patternVote);
+  if(keyMapVote)comebackVotes.push(keyMapVote);
+  if(comebackVotes.length===0)return null;
+  const bVotes=comebackVotes.filter(v=>v.value==='B');
+  const sVotes=comebackVotes.filter(v=>v.value==='S');
+  const bWeight=bVotes.reduce((sum,v)=>sum+v.weight,0);
+  const sWeight=sVotes.reduce((sum,v)=>sum+v.weight,0);
+  let value,confidence;
+  if(bWeight===sWeight){
+    if(keyMapVote&&keyMapVote.value){ value=keyMapVote.value; confidence=0.65; }
+    else return null;
+  }else{
+    const winner=bWeight>sWeight?'B':'S';
+    const winnerVotes=comebackVotes.filter(v=>v.value===winner);
+    const loserVotes=comebackVotes.filter(v=>v.value!==winner);
+    if(comebackVotes.length===3&&loserVotes.length===0){confidence=0.95;}
+    else if(comebackVotes.length===3&&winnerVotes.length===2){confidence=0.80;}
+    else if(comebackVotes.length===2&&loserVotes.length===0){confidence=0.90;}
+    else if(comebackVotes.length===2){confidence=0.72;}
+    else{confidence=Math.min(1,(winnerVotes[0].weight||1)*0.85);}
+    value=winner;
+  }
+  return{ value,source:'COMEBACK',weight:3.5,confidence };
+}
+
+function lg_logic_jarvish(ctx){
+  const nums = Array.isArray(ctx.nums) ? ctx.nums : [];
+  const sizes = Array.isArray(ctx.sizes) ? ctx.sizes : [];
+  if(nums.length < 2 || sizes.length < 2) return null;
+  const seqChrono = sizes.slice().reverse().map(s => s === 'BIG' ? 'B' : 'S');
+  const chartNum = Number(String(nums[0]) + String(nums[1]));
+  const periodId = lg_nextIssueId(ctx.period) || String(ctx.period || '');
+  const patternVote = jarvish_getPatternChartVote(seqChrono);
+  const vipVote = jarvish_getVipCoreVote(seqChrono);
+  const comebackVote = jarvish_getComebackVote(seqChrono, periodId, chartNum);
+  const votes = [patternVote, vipVote, comebackVote].filter(Boolean);
+  let winner, confidence = 0.55;
+  if(votes.length === 0){
+    winner = seqChrono[seqChrono.length - 1];
+  }else{
+    const bVotes = votes.filter(v => v.value === 'B');
+    const sVotes = votes.filter(v => v.value === 'S');
+    const bWeight = bVotes.reduce((sum,v) => sum + v.weight, 0);
+    const sWeight = sVotes.reduce((sum,v) => sum + v.weight, 0);
+    if(bWeight > sWeight) winner = 'B';
+    else if(sWeight > bWeight) winner = 'S';
+    else{ const heaviest = votes.slice().sort((a,b) => b.weight - a.weight)[0]; winner = heaviest ? heaviest.value : 'B'; }
+    const winnerVotes = votes.filter(v => v.value === winner);
+    const loserVotes = votes.filter(v => v.value !== winner);
+    if(votes.length === 3 && loserVotes.length === 0){ confidence = 0.95; }
+    else if(votes.length === 3 && winnerVotes.length === 2){ confidence = 0.80; }
+    else if(votes.length === 2 && loserVotes.length === 0){ confidence = 0.90; }
+    else if(votes.length === 2){ confidence = 0.72; }
+    else{ confidence = Math.max(...winnerVotes.map(v => v.confidence || 0.68)); }
+  }
+  const prediction = winner === 'B' ? 'BIG' : 'SMALL';
+  return { prediction, number: lg_pickNumberFor(nums, prediction), reason: `${Math.round(confidence * 100)}%` };
+}
+
+const TRICK_LOGICS = [
+  lg_logic_drago_noname, lg_logic_kingvip, lg_logic_wolfcore,
+  lg_logic_pattern3, lg_logic_mayank, lg_logic_twolevel,
+  lg_logic_dragon_empire, lg_logic_elitev3, lg_logic_akatsuki,
+  lg_logic_blackgoku, lg_logic_numbermod, lg_logic_target,
+  lg_logic_bmw, lg_logic_ragstk, lg_logic_jarvish
+];
+
+function getTRICK_Card_Vote(allNumsChrono, latestPeriod){
+  if(!Array.isArray(allNumsChrono) || allNumsChrono.length < 3) return null;
+  const nums = allNumsChrono.slice().reverse();
+  const sizes = nums.map(lg_getSize);
+  const ctx = { nums, sizes, period: latestPeriod };
+  let big = 0, small = 0;
+  for(const fn of TRICK_LOGICS){
+    try {
+      const out = fn(ctx);
+      if(out && out.prediction === 'BIG') big++;
+      else if(out && out.prediction === 'SMALL') small++;
+    } catch(e) { }
+  }
+  const total = big + small;
+  if(total === 0) return null;
+  if(big > small) return 'B';
+  if(small > big) return 'S';
+  return null;
+}
+
+/* ===== STATE ===== */
+const TOTAL=10;
+let window10 = new Array(TOTAL).fill(null), mode='setup', history=[];
+let allResults = [];
+let allNumbers = [];
+let chartNum1=null;
+let gameMode='1min';
+
+let comboLevel = 1, personalLevel = 1, trickLevel = 1;
+let currentLevel = 1, highestLevel = 1;
+let highestLevelAt = null;
+
+let skipRemaining = 0;
+const REVERSE_LEVELS = [4];
+// Session statistics: wins grouped by the level at which the forecast was made.
+const levelWinCounts = Array(8).fill(0);
+let highestLevelReachedCount = 0;
+let highestLevelResetCount = 0;
+
+let pendingForecast = null;
+
+let apiPollTimer=null, apiBusy=false, apiLastIssue={'1min':null,'30sec':null}, apiSeeded={'1min':false,'30sec':false};
+let latestApiResults=[];
+const $=id=>document.getElementById(id);
+function pad2(n){return String(n).padStart(2,'0')}
+
+function formatTimeAgo(ts){
+  if(!ts) return '';
+  const diff = Math.max(0, Math.floor((Date.now() - ts) / 1000));
+  if(diff < 60) return `${diff}s ago`;
+  if(diff < 3600) return `${Math.floor(diff/60)}m ago`;
+  if(diff < 86400) return `${Math.floor(diff/3600)}h ago`;
+  return `${Math.floor(diff/86400)}d ago`;
+}
+function formatClock(ts){
+  if(!ts) return '';
+  const d = new Date(ts);
+  return `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+}
+function updateHighestLevelTime(){
+  const el = $('highestLevelTime');
+  if(!el) return;
+  if(!highestLevelAt){ el.textContent = '—'; return; }
+  el.textContent = `${formatClock(highestLevelAt)} · ${formatTimeAgo(highestLevelAt)}`;
+}
+
+function getUTCPeriod(){
+  const now=new Date(),y=now.getUTCFullYear(),mo=pad2(now.getUTCMonth()+1),d=pad2(now.getUTCDate()),h=now.getUTCHours(),mi=now.getUTCMinutes();
+  if(gameMode==='1min'){const seq=String(10001+h*60+mi).padStart(5,'0');return `${y}${mo}${d}1000${seq}`}
+  const tot=h*3600+mi*60+now.getUTCSeconds(); const seq=String(50001+Math.floor(tot/30)).padStart(5,'0');
+  return `${y}${mo}${d}1000${seq}`;
+}
+
+function getTargetPeriod() {
+  if (apiLastIssue[gameMode]) {
+    return lg_nextIssueId(apiLastIssue[gameMode]);
+  }
+  return getUTCPeriod();
+}
+
+function getRemainingSeconds(){const s=new Date().getUTCSeconds();return gameMode==='30sec'?30-(s%30):60-s}
+
+function updateTimerAndPeriod(){
+    const rem=getRemainingSeconds();
+    const total = gameMode==='30sec' ? 30 : 60;
+    const elapsed = total - rem;
+    const progressDeg = Math.min(360, (elapsed / total) * 360);
+    const ring = $('timerRing');
+    if(ring){
+      ring.style.setProperty('--progress', progressDeg + 'deg');
+      if(rem <= 10) ring.classList.add('urgent');
+      else ring.classList.remove('urgent');
+    }
+    // small traveling dot
+    const dot = $('timerDot');
+    if(dot){
+      const rad = ((progressDeg - 90) * Math.PI) / 180;
+      const r = 30.5;    // slightly outside for small dot visibility
+      const cx = 33, cy = 33;
+      dot.style.left = (cx + Math.cos(rad) * r) + 'px';
+      dot.style.top  = (cy + Math.sin(rad) * r) + 'px';
+    }
+    $('timer').textContent=pad2(rem);
+    const target = getTargetPeriod();
+    $('periodId').textContent=target || '...';
+    updateHighestLevelTime();
+}
+
+function updatePrediction(){
+  const currentTarget = getTargetPeriod();
+  if(!currentTarget) return;
+
+  if(pendingForecast && pendingForecast.periodId === currentTarget){
+    renderPredictionUI(pendingForecast);
+    return;
+  }
+
+  if (skipRemaining > 0) {
+    pendingForecast = {
+      periodId: currentTarget, value: '-', isSkip: true, isLevelSkip: true, isReverse: false,
+      originalValue: null, comboVote: null, personalVote: null, trickVote: null
+    };
+    renderPredictionUI(pendingForecast);
+    return;
+  }
+
+  const seqChrono = allResults.slice(-50);
+  const latestApiIssue = apiLastIssue[gameMode];
+
+  const comboVote = getCOMBO_Card_Vote(seqChrono, currentTarget);
+  const personalVote = getPERSONAL_Card_Vote(seqChrono, history);
+  const trickVote = getTRICK_Card_Vote(allNumbers, latestApiIssue);
+
+  let finalVal = null;
+  const votes = [comboVote, personalVote, trickVote].filter(v => v==='B' || v==='S');
+  if(votes.length > 0){
+      const bCount = votes.filter(v=>v==='B').length;
+      const sCount = votes.filter(v=>v==='S').length;
+      finalVal = bCount > sCount ? 'B' : (sCount > bCount ? 'S' : null);
+  }
+
+  let isReverse = false;
+  let originalValue = null;
+  if (finalVal && REVERSE_LEVELS.includes(currentLevel)) {
+    originalValue = finalVal;
+    finalVal = finalVal === 'B' ? 'S' : 'B';
+    isReverse = true;
+  }
+
+  if(finalVal && (finalVal==='B' || finalVal==='S')){
+    pendingForecast = {
+      periodId: currentTarget, value: finalVal, levelAtPrediction: currentLevel,
+      originalValue: originalValue,
+      comboVote: comboVote, personalVote: personalVote, trickVote: trickVote,
+      isSkip: false, isLevelSkip: false, isReverse: isReverse
+    };
+  } else {
+    pendingForecast = {
+      periodId: currentTarget, value: '-', isSkip: true, isLevelSkip: false, isReverse: false,
+      originalValue: null,
+      comboVote: comboVote, personalVote: personalVote, trickVote: trickVote
+    };
+  }
+  renderPredictionUI(pendingForecast);
+}
+
+function renderPredictionUI(forecast) {
+  const vc = $('valCombo'), vp = $('valPersonal'), vt = $('valTrick');
+  if(vc){ vc.textContent = forecast.comboVote || '—'; vc.className = 'ai-card-val ' + (forecast.comboVote || 'WAIT'); }
+  if(vp){ vp.textContent = forecast.personalVote || '—'; vp.className = 'ai-card-val ' + (forecast.personalVote || 'WAIT'); }
+  if(vt){ vt.textContent = forecast.trickVote || '—'; vt.className = 'ai-card-val ' + (forecast.trickVote || 'WAIT'); }
+
+  $('highestLevelDisplay').textContent = `L${highestLevel}`;
+  $('currentLevelDisplay').textContent = `L${currentLevel}`;
+  updateHighestLevelTime();
+  renderLevelStats();
+
+  const badge = $('overrideBadge');
+  const label = $('predLabel');
+  const revCard = $('reverseCard');
+  badge.classList.remove('skip-mode');
+
+  if (forecast.isLevelSkip) {
+    badge.classList.add('show', 'skip-mode');
+    badge.textContent = `⏸ SKIP MODE — ${skipRemaining} PERIOD(S) LEFT`;
+    label.textContent = 'NO BET — SKIP';
+    $('predValue').className = 'pred-value SKIP';
+    $('predValue').textContent = 'SKIP';
+    if(revCard) revCard.classList.remove('show');
+  } else if (forecast.isReverse && !forecast.isSkip && forecast.value !== '-') {
+    badge.classList.remove('show');
+    label.textContent = 'AI PREDICTION (REVERSED)';
+    $('predValue').className = 'pred-value ' + forecast.value;
+    $('predValue').textContent = forecast.value === 'B' ? 'BIG' : 'SMALL';
+    if(revCard){
+      revCard.classList.add('show');
+      const ro = $('reverseOriginal');
+      const rf = $('reverseFinal');
+      const origVal = forecast.originalValue || '-';
+      if(ro) ro.textContent = origVal === 'B' ? 'BIG' : 'SMALL';
+      if(rf){
+        rf.textContent = forecast.value === 'B' ? 'BIG' : 'SMALL';
+        rf.className = 'rev-final ' + forecast.value;
+      }
+    }
+  } else if (!forecast.isSkip && forecast.value !== '-') {
+    badge.classList.remove('show');
+    label.textContent = 'AI PREDICTION';
+    $('predValue').className = 'pred-value ' + forecast.value;
+    $('predValue').textContent = forecast.value === 'B' ? 'BIG' : 'SMALL';
+    if(revCard) revCard.classList.remove('show');
+  } else {
+    badge.classList.remove('show');
+    label.textContent = 'AI PREDICTION';
+    $('predValue').className = 'pred-value SKIP';
+    $('predValue').textContent = 'TIE';
+    if(revCard) revCard.classList.remove('show');
+  }
+}
+
+function renderBoxes(){
+  const el = $('boxes'); if(!el)return;
+  el.innerHTML = '';
+  for(let i=0;i<TOTAL;i++){
+    const box = document.createElement('div');
+    box.className = 'box ' + (window10[i] || '');
+    box.textContent = window10[i] || '';
+    el.appendChild(box);
+  }
+}
+
+function renderHistory(){
+  const body=$('historyBody');if(!body)return;
+  body.innerHTML='';
+
+  if(pendingForecast && !pendingForecast.isSkip){
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${history.length+1}</td><td class="mono" title="${pendingForecast.periodId}">${pendingForecast.periodId}</td><td>${pendingForecast.value}</td><td>—</td><td class="icon-pending">⏳</td>`;
+    body.appendChild(tr);
+  }
+
+  if(history.length===0 && !pendingForecast) {
+    body.innerHTML='<tr><td colspan="5" class="empty-msg">Abhi tak koi history nahi hai.</td></tr>';
+  } else {
+    [...history].reverse().forEach((h,i)=>{
+      const tr=document.createElement('tr');
+      const skip = h.wasSkip || h.predicted === '-';
+      let icon, cls;
+      if(skip) { icon='⊘'; cls='icon-skip'; }
+      else if(h.correct) { icon='🏆'; cls='icon-win'; }
+      else { icon='🚫'; cls='icon-loss'; }
+
+      if(skip) tr.classList.add('skip-row');
+
+      const periodText = h.periodId || '—';
+      const predHtml = skip ? '<span class="skip-badge">SKIP</span>' : h.predicted;
+
+      tr.innerHTML=`<td>${history.length-i}</td><td class="mono" title="${periodText}">${periodText}</td><td>${predHtml}</td><td>${h.actual || '—'}</td><td class="${cls}">${icon}</td>`;
+      body.appendChild(tr);
+    });
+  }
+
+  const real = history.filter(h => !h.wasSkip && h.predicted !== '-' && h.predicted !== null);
+  const win = real.filter(h => h.correct).length;
+  const loss = real.length - win;
+  const skip = history.length - real.length;
+
+  $('hWin').textContent = win;
+  $('hLoss').textContent = loss;
+  $('hSkip').textContent = skip;
+  $('hPend').textContent = (pendingForecast && !pendingForecast.isSkip) ? 1 : 0;
+}
+
+function renderLevelStats(){
+  const grid = $('levelStatsGrid');
+  if(grid){
+    grid.innerHTML = '';
+    for(let level=1; level<=7; level++){
+      const item = document.createElement('div');
+      item.className = 'level-stat';
+      item.innerHTML = `<span>LEVEL ${level} WINS</span><strong>${levelWinCounts[level]}</strong>`;
+      grid.appendChild(item);
+    }
+  }
+  const reached = $('highestReachedCount');
+  const resets = $('highestResetCount');
+  if(reached) reached.textContent = highestLevelReachedCount;
+  if(resets) resets.textContent = highestLevelResetCount;
+}
+function renderAll(){
+  renderBoxes();
+  renderHistory();
+  renderLevelStats();
+}
+
+function triggerWinAnimation() {
+    playWinSound();
+    const overlay = $('winOverlay');
+    overlay.classList.add('show');
+    setTimeout(() => { overlay.classList.remove('show'); }, 2500);
+}
+
+function triggerSkipAnimation() {
+    const overlay = $('skipOverlay');
+    if(!overlay) return;
+    overlay.classList.add('show');
+    setTimeout(() => { overlay.classList.remove('show'); }, 2200);
+}
+
+/* ===== API LOGIC ===== */
+function extractApiRows(payload){
+  const found=[],seen=new Set();
+  function walk(node,depth=0){
+    if(!node||typeof node!=='object'||depth>8||seen.has(node))return;
+    seen.add(node);
+    if(Array.isArray(node)){for(const item of node)walk(item,depth+1);return;}
+    const issueRaw=node.issueNumber??node.issue_number??node.issue??node.period??node.periodNumber??node.issue_no??node.drawId??node.draw_id;
+    const raw=node.number??node.resultNumber??node.result_number??node.result??node.openNumber??node.open_number??node.winNumber??node.winningNumber;
+    if(issueRaw!==undefined&&raw!==undefined){
+      const issue=String(issueRaw).trim();
+      const match=String(raw).match(/(?:^|\D)([0-9])(?:\D|$)/);
+      const number=match?Number(match[1]):NaN;
+      if(issue&&Number.isFinite(number)&&number>=0&&number<=9)found.push({issue,number,value:number>=5?'B':'S'});
+    }
+    Object.values(node).forEach(v=>walk(v,depth+1));
+  }
+  walk(payload);
+  const unique=[...new Map(found.map(r=>[r.issue,r])).values()];
+  unique.sort((a,b)=>{
+    if(/^\d+$/.test(a.issue)&&/^\d+$/.test(b.issue)){
+      const aa=BigInt(a.issue),bb=BigInt(b.issue);return aa<bb?-1:aa>bb?1:0;
+    }
+    return a.issue.localeCompare(b.issue,undefined,{numeric:true});
+  });
+  return unique;
+}
+
+function processApiRow(r){
+  if (pendingForecast && pendingForecast.periodId === r.issue) {
+    if (pendingForecast.isSkip) {
+      history.push({ periodId: pendingForecast.periodId, predicted: '-', actual: r.value, correct: null, wasSkip: true });
+      if (pendingForecast.isLevelSkip) skipRemaining = Math.max(0, skipRemaining - 1);
+    } else {
+      const wasCorrect = pendingForecast.value === r.value;
+      history.push({ periodId: pendingForecast.periodId, predicted: pendingForecast.value, actual: r.value, correct: wasCorrect });
+
+      if (wasCorrect) {
+        triggerWinAnimation();
+        const winLevel = Number(pendingForecast.levelAtPrediction || currentLevel);
+        if (winLevel >= 1 && winLevel <= 7) levelWinCounts[winLevel]++;
+        if (currentLevel > 1) highestLevelResetCount++;
+        currentLevel = 1;
+      } else {
+        currentLevel++;
+        if (currentLevel > highestLevel) {
+          highestLevel = currentLevel;
+          highestLevelAt = Date.now();
+          highestLevelReachedCount++;
+        }
+        if (currentLevel > 1 && currentLevel % 2 === 1) {
+          skipRemaining = 2;
+          triggerSkipAnimation();
+        }
+      }
+    }
+
+    if (!pendingForecast.isLevelSkip) {
+      if (pendingForecast.comboVote) {
+        if (pendingForecast.comboVote === r.value) comboLevel = 1; else comboLevel++;
+      }
+      if (pendingForecast.personalVote) {
+        if (pendingForecast.personalVote === r.value) personalLevel = 1; else personalLevel++;
+      }
+      if (pendingForecast.trickVote) {
+        if (pendingForecast.trickVote === r.value) trickLevel = 1; else trickLevel++;
+      }
+    }
+  } else if (pendingForecast) {
+    history.push({ periodId: pendingForecast.periodId, predicted: pendingForecast.value, actual: null, correct: null, wasSkip: true });
+    if (pendingForecast.isLevelSkip) skipRemaining = Math.max(0, skipRemaining - 1);
+  }
+
+  pendingForecast = null;
+
+  allResults.push(r.value);
+  allNumbers.push(r.number);
+
+  if (mode === 'setup') {
+    const idx = window10.findIndex(x => x === null);
+    if (idx !== -1) {
+      window10[idx] = r.value;
+      if (window10.every(x => x !== null)) mode = 'rolling';
+    }
+  } else {
+    window10.pop();
+    window10.unshift(r.value);
+  }
+
+  const nums = latestApiResults.map(res => String(res.number));
+  chartNum1 = nums.join('').slice(0, 2) === '' ? null : Number(nums.join('').slice(0, 2));
+}
+
+async function pollGameAPI(){
+  if(apiBusy)return;
+  apiBusy=true;
+  const url = gameMode==='1min'?'https://draw.ar-lottery01.com/WinGo/WinGo_1M/GetHistoryIssuePage.json':'https://draw.ar-lottery01.com/WinGo/WinGo_30S/GetHistoryIssuePage.json';
+  try{
+    const response=await fetch(url,{method:'GET',cache:'no-store'});
+    if(!response.ok)throw new Error('HTTP');
+    const payload=await response.json();
+    const rows=extractApiRows(payload);
+    if(!rows.length)throw new Error('No rows');
+    const last=rows[rows.length-1];
+    latestApiResults=rows.slice(-2).reverse();
+
+    if(!apiSeeded[gameMode]){
+      const recent=rows.slice(-TOTAL).reverse();
+      window10=new Array(TOTAL).fill(null);
+      recent.forEach((r,i)=>{window10[i]=r.value;});
+
+      allResults = rows.map(r => r.value);
+      allNumbers = rows.map(r => r.number);
+
+      mode=recent.length===TOTAL?'rolling':'setup';
+      apiLastIssue[gameMode]=last.issue;
+      apiSeeded[gameMode]=true;
+
+      const nums = latestApiResults.map(res => String(res.number));
+      chartNum1 = nums.join('').slice(0,2) === '' ? null : Number(nums.join('').slice(0,2));
+
+      updatePrediction();
+      updateTimerAndPeriod();
+      renderAll();
+    }else if(apiLastIssue[gameMode]!==last.issue){
+      let fresh=rows.filter(r=>{
+        if(/^\d+$/.test(r.issue)&&/^\d+$/.test(String(apiLastIssue[gameMode]||'')))return BigInt(r.issue)>BigInt(apiLastIssue[gameMode]);
+        return String(r.issue).localeCompare(String(apiLastIssue[gameMode]||''),undefined,{numeric:true})>0;
+      });
+
+      fresh.sort((a,b) => String(a.issue).localeCompare(String(b.issue), undefined, {numeric: true}));
+
+      if(!fresh.length)fresh=[last];
+
+      fresh.forEach(r=>{
+        processApiRow(r);
+        apiLastIssue[gameMode] = r.issue;
+        updatePrediction();
+      });
+
+      apiLastIssue[gameMode]=last.issue;
+      updateTimerAndPeriod();
+      renderAll();
+    }
+  }catch(err){
+    console.warn('API sync failed');
+  }finally{apiBusy=false}
+}
+
+function startApiPolling(){
+  if(apiPollTimer)clearInterval(apiPollTimer);
+  pollGameAPI();
+  apiPollTimer=setInterval(pollGameAPI,3000);
+}
+
+function switchMode(m){
+  if(m===gameMode)return;
+  gameMode=m;
+  apiSeeded[m]=false; apiLastIssue[m]=null;
+  window10=new Array(TOTAL).fill(null); mode='setup';
+
+  pendingForecast = null;
+  comboLevel = 1; personalLevel = 1; trickLevel = 1;
+  currentLevel = 1; highestLevel = 1;
+  highestLevelAt = null;
+  skipRemaining = 0;
+  history = [];
+  allResults = [];
+  allNumbers = [];
+  chartNum1 = null;
+  latestApiResults = [];
+
+  const rev = $('reverseCard'); if(rev) rev.classList.remove('show');
+
+  $('oneMinBtn').classList.toggle('active',gameMode==='1min');
+  $('thirtySecBtn').classList.toggle('active',gameMode==='30sec');
+
+  renderAll(); updateTimerAndPeriod();
+  pollGameAPI();
+}
+
+setInterval(updateTimerAndPeriod, 1000);
+updateTimerAndPeriod();
+renderAll();
+startApiPolling();
+</script>
+</body>
+</html>
